@@ -1,0 +1,78 @@
+<div class="admin-container">
+  <header>
+    <h1>Admin Dashboard</h1>
+    <button (click)="logout()">Logout</button>
+  </header>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <h3>Total Bookings</h3>
+      <p class="stat-value">{{ stats.totalBookings || 0 }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>Total Revenue</h3>
+      <p class="stat-value">₹{{ stats.totalRevenue || 0 }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>Total Users</h3>
+      <p class="stat-value">{{ stats.totalUsers || 0 }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>Pending Bookings</h3>
+      <p class="stat-value">{{ stats.pendingBookings || 0 }}</p>
+    </div>
+  </div>
+
+  <div class="bookings-section">
+    <h2>All Bookings</h2>
+    
+    @if (loading) {
+      <div class="loading">Loading...</div>
+    }
+    
+    @if (!loading) {
+      <table>
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Turf Type</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (booking of bookings; track booking._id) {
+            <tr>
+              <td>{{ booking.user?.name }}</td>
+              <td>{{ booking.turfType }}</td>
+              <td>{{ booking.date | date:'shortDate' }}</td>
+              <td>{{ booking.timeSlot }}</td>
+              <td>₹{{ booking.amount }}</td>
+              <td><span [class]="'status ' + booking.status">{{ booking.status }}</span></td>
+              <td>
+                <select (change)="updateStatus(booking._id, $any($event.target).value)" [value]="booking.status">
+                  <option value="pending">Pending</option>
+                  <option value="confirmed">Confirmed</option>
+                  <option value="completed">Completed</option>
+                  <option value="cancelled">Cancelled</option>
+                </select>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  </div>
+
+  <div class="reports-section">
+    <div class="report-card">
+      <h3>Booking by Turf Type</h3>
+      @for (item of bookingReport; track item._id) {
+        <p>{{ item._id }}: {{ item.count }} bookings (₹{{ item.revenue }})</p>
+      }
+    </div>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+<div class="booking-container">
+  <div class="booking-card">
+    <h2>Book Your Turf</h2>
+
+    <div class="form-group">
+      <label>Turf Type</label>
+      <select [(ngModel)]="turfType" (change)="loadSlots()">
+        <option value="">Select Turf Type</option>
+        @for (type of turfTypes; track type) {
+          <option [value]="type">{{ type | titlecase }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Date</label>
+      <input type="date" [(ngModel)]="date" [min]="date" (change)="loadSlots()">
+    </div>
+
+    @if (availableSlots.length > 0) {
+      <div class="form-group">
+        <label>Time Slot</label>
+        <select [(ngModel)]="timeSlot">
+          <option value="">Select Time Slot</option>
+          @for (slot of availableSlots; track slot) {
+            <option [value]="slot">{{ slot }}</option>
+          }
+        </select>
+      </div>
+    }
+
+    <div class="form-group">
+      <label>Duration (hours)</label>
+      <input type="number" [(ngModel)]="duration" min="1" max="4">
+    </div>
+
+    @if (turfType) {
+      <div class="price-info">
+        <p>Price: ₹{{ pricing[turfType] }} per hour</p>
+        <p><strong>Total: ₹{{ pricing[turfType] * duration }}</strong></p>
+      </div>
+    }
+
+    <button (click)="createBooking()" [disabled]="!turfType || !date || !timeSlot || loading">
+      {{ loading ? 'Processing...' : 'Book & Pay' }}
+    </button>
+
+    @if (error) {
+      <p class="error">{{ error }}</p>
+    }
+  </div>
+</div>

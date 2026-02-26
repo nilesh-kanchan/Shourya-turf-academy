@@ -1,0 +1,71 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.login-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  width: 100%;
+  max-width: 400px;
+}
+
+h1 { font-size: 1.5rem; text-align: center; color: #333; margin-bottom: 1rem; }
+h2 { font-size: 1.2rem; text-align: center; color: #555; margin-bottom: 1.5rem; }
+
+.toggle-group {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.toggle-group button {
+  flex: 1;
+  padding: 0.5rem;
+  border: 2px solid #667eea;
+  background: white;
+  color: #667eea;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.toggle-group button.active {
+  background: #667eea;
+  color: white;
+}
+
+input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+button {
+  width: 100%;
+  padding: 0.75rem;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+}
+
+button:hover { background: #5568d3; }
+button:disabled { background: #ccc; cursor: not-allowed; }
+button.secondary { background: #6c757d; }
+
+.error {
+  color: #dc3545;
+  text-align: center;
+  margin-top: 1rem;
+}
